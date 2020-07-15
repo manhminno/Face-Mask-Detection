@@ -1,18 +1,32 @@
 import torchvision.datasets as datasets
+import matplotlib.pyplot as plt
 
 from utils import *
 
 dataset = datasets.ImageFolder('./dataset', transform=data_transform)
 
-train_set, val_set = torch.utils.data.random_split(dataset, [2338, 576])
+#split train/val : 80/20
+train_set, val_set = torch.utils.data.random_split(dataset, [2208, 552])
 
 print('Train set:', len(train_set))
 print('Validation set:', len(val_set))
 
+#Load dataset
 batch_size = 32
 train_load = torch.utils.data.DataLoader(dataset=train_set, batch_size=batch_size, shuffle=True)
 val_load = torch.utils.data.DataLoader(dataset=val_set, batch_size=batch_size, shuffle=False)
 
+#Show img after load
+# def imgshow(img):
+#     img = img/2 + 0.5 
+#     np_img = img.numpy()
+#     plt.figure(figsize=(20, 20))
+#     plt.imshow(np.transpose(np_img, (1, 2, 0)))
+#     plt.show()
+
+# data_iter = iter(val_load)
+# img, labels = data_iter.next()
+# imgshow(torchvision.utils.make_grid(img))
 
 model = CNN()
 
@@ -103,25 +117,18 @@ def Training_Model(model, epochs, parameters):
         print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}, Val Loss: {:.3f}, Val Accuracy: {:.3f}, Time: {}s'
             .format(epoch+1, epochs, train_loss[-1], train_acc[-1], val_loss[-1], val_acc[-1],stop-start))
 
-epochs = 10
+epochs = 32
 Training_Model(model=model, epochs=epochs, parameters=model.parameters())
 
 #Save model
 torch.save(model.state_dict(), 'weights/Face-Mask-Model.pt')
-#Can load and continue training model to to improve accuracy
-# model.load_state_dict(torch.load('Animals_Model.pth'))
 
-# import matplotlib.pyplot as plt
-# import torchvision
-# def imgshow(img):
-#     img = img/2 + 0.5 
-#     np_img = img.numpy()
-#     plt.figure(figsize=(20, 20))
-#     plt.imshow(np.transpose(np_img, (1, 2, 0)))
-#     plt.show()
-
-# data_iter = iter(val_load)
-# img, labels = data_iter.next()
-# imgshow(torchvision.utils.make_grid(img))
-# for i, (inputs, labels) in enumerate(val_load, 0):
-#     print(labels)
+#Show chart acc and save Acc_chart
+plt.plot(train_acc, label='Train_Accuracy')
+plt.plot(val_acc, label='Val_Accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epochs')
+plt.axis('equal')
+plt.legend(loc=7)
+plt.savefig('Acc_chart.png')
+plt.show()
