@@ -77,6 +77,8 @@ if __name__ == "__main__":
         #Load webcam
         cap = cv2.VideoCapture(0)
 
+        out = cv2.VideoWriter('output.AVI', cv2.VideoWriter_fourcc('M','J','P','G'), 24.0, (640,480))
+
         while 1:
             ret, img = cap.read()
 
@@ -91,7 +93,7 @@ if __name__ == "__main__":
                 list_person[count][predict(img2, model)] += 1
                 
                 #Each 18 frames show face
-                if(sum(list_person[count]) == 18):
+                if(sum(list_person[count]) == 12):
                     #Change face
                     emo = list_person[count].index(max(list_person[count]))
                     face[count] = label2id[emo]
@@ -102,6 +104,8 @@ if __name__ == "__main__":
                 #Put face and next face
                 putface(img, face[count], x, y, w, h)
                 count += 1
+
+            out.write(img)
 
             #Show
             cv2.imshow('Webcam',img)
