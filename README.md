@@ -16,3 +16,24 @@ Dataset I searched online, there were about 3,600 images including 1800 have mas
 python Data_processing.py
 ```
 ## Train model
+Divide the dataset into training  set and validation set (80/20)
+- *Using CrossEntropyLoss, SGD(Stochastic Gradient Descent) lr = 0.01*
+```
+python train.py
+```
+## Result
+Because  having only 2 classes, the dataset is preprocessed so the accuracy is high on training set and validation set (training 32 epochs).
+#### *Accuracy chart*
+<p align="center"> <img src="https://github.com/manhminno/Face-Mask-Detection/blob/master/Acc_chart.png"></p>
+
+## Enjoy result:
+```
+* For webcam: python main.py --mode Webcam
+* For image: python main.py --mode Image --path (Img_file)
+```
+## Demo
+#### *Image*
+<p align="center"> <img src="https://github.com/manhminno/Face-Mask-Detection/blob/master/Demo_img.jpg"></p>
+
+#### *Video*
+<p align="center"> <img src="https://github.com/manhminno/Face-Mask-Detection/blob/master/Demo_video.gif"></p>
