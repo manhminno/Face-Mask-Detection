@@ -11,7 +11,7 @@ import cv2
 # count = 0
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades  + 'haarcascade_frontalface_default.xml')
 
-def face_crop(path_link, link, name):
+def face_crop(path_link, name):
     print(path_link)
     img = cv2.imread(path_link)
 
@@ -32,7 +32,7 @@ for i in os.listdir('dataset/'):
         print(img)
         name = str(count) + '_after' +'.jpg'
         name = os.path.join(file, name)
-        face_crop(img, img, name)
+        face_crop(img, name)
         count += 1
     # print(file, count)
 
