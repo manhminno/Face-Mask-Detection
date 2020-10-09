@@ -36,4 +36,3 @@ Because  having only 2 classes, the dataset is preprocessed so the accuracy is h
 <p align="center"> <img src="https://github.com/manhminno/Face-Mask-Detection/blob/master/Demo_img.jpg"></p>
 
 #### *Video*
-<p align="center"> <img src="https://github.com/manhminno/Face-Mask-Detection/blob/master/Demo_video.gif"></p>
